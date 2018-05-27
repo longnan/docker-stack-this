@@ -3,7 +3,7 @@
 # This script is made to run on a fresh play-with-docker node
 
 # install common apps
-apk update && apk upgrade && apk add                                \
+apk update && apk upgrade && apk add --no-cache                     \
     nano bash git curl wget unzip openssl tar tzdata                && \
     ca-certificates                                                 && \
 
