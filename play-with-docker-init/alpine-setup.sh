@@ -4,7 +4,7 @@
 
 # install common apps
 apk update && apk upgrade && apk add --no-cache                     \
-    nano bash git curl wget unzip openssl tar tzdata                && \
+    nano bash git curl wget unzip openssl tar tzdata                \
     ca-certificates                                                 && \
 
 # set local time
