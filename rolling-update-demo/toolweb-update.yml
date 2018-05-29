@@ -7,7 +7,7 @@ services:
     networks:
       - ntw_front
     volumes:
-      - ./www/who1/html/:/usr/share/nginx/html/
+      - ./www/who3/html/:/usr/share/nginx/html/
     deploy:
       mode: replicated
       replicas: 2
@@ -24,8 +24,8 @@ services:
           cpus: '0.05'
           memory: 9M
       labels:
-      - "traefik.frontend.rule=PathPrefixStrip:/who3"
-      - "traefik.backend=who3"
+      - "traefik.frontend.rule=PathPrefixStrip:/who1"
+      - "traefik.backend=who1"
       - "traefik.port=80"
       - "traefik.weight=10"
       - "traefik.enable=true"
