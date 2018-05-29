@@ -2,7 +2,7 @@
 
 work in progress 2018-05-28_22h32
 
-This monorepo is a ‘fork’ of traefik_stack5. Make sure to understand what it does as I won’t re-explain it here. 
+This mono repo is based on `traefik_stack5`. Please make sure to understand what it does as I won’t re-explain what it does here.
 
 ## Start here
 1. Go to http://labs.play-with-docker.com/ 
