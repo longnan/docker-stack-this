@@ -1,6 +1,9 @@
 ## Introduction
 
-work in progress 2018-05-28_22h32
+work in progress 2018-05-29_00h20
+Not stable
+
+---
 
 This mono repo is based on `traefik_stack5`. Please make sure to understand what it does as I won’t re-explain what it does here.
 
