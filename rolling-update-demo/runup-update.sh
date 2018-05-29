@@ -10,7 +10,7 @@ set -o nounset
 ###############################################################################
 
 # webapps
-docker stack deploy toolweb -c toolweb-update
+docker stack deploy toolweb -c toolweb-update.yml
 echo; echo; sleep 2
 
 # List
