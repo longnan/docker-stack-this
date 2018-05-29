@@ -36,11 +36,11 @@ services:
       - "traefik.backend.loadbalancer.method=drr"
 
   who1:
-    image: nginx:1.13.12-alpine
+    image: abiosoft/caddy:0.10.14
     networks:
       - ntw_front
     volumes:
-      - ./www/who1/html/:/usr/share/nginx/html/
+      - ./www/who1/srv/:/srv/
     deploy:
       mode: replicated
       replicas: 2

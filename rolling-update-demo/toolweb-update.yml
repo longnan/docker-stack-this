@@ -7,12 +7,13 @@ services:
     networks:
       - ntw_front
     volumes:
+      # here we serve content under who3
       - ./www/who3/html/:/usr/share/nginx/html/
     deploy:
       mode: replicated
       replicas: 2
-      #placement:
-      #  constraints: [node.role==manager]
+      # placement:
+      # constraints: [node.role==manager]
       restart_policy:
         condition: on-failure
         max_attempts: 5
