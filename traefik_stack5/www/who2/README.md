@@ -1,1 +1,1 @@
-No configs required for who2 container :)
+No HTML configs are required for container `who2`
