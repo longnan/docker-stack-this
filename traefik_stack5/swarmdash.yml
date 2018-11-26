@@ -1,6 +1,10 @@
 # docker stack deploy -c swarmdash.yml swarmdash
 
-version: "3"
+version: '3.3'
+
+networks:
+  ntw_front:
+    external: true
 
 services:
 
