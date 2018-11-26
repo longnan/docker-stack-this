@@ -33,7 +33,7 @@ services:
         - "traefik.enable=false"
 
   traefik:
-    image: traefik:1.6.6-alpine
+    image: traefik:1.7.4-alpine
     ports:
     - target: 80
       protocol: tcp
