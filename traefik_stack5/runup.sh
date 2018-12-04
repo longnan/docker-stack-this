@@ -74,7 +74,7 @@ echo; echo;
 
 MIN="1"
 MAX="8"
-for {ACTION} in $(seq ${MIN} ${MAX}); do
+for ACTION in $(seq ${MIN} ${MAX}); do
   echo
   echo "docker service ls | Check ${ACTION}" of ${MAX}; echo;
   docker service ls && echo && sleep 2;
