@@ -3,7 +3,7 @@ version: '3.3'
 networks:
   ntw_front:
     external: true
-  ntw_socat:
+  ntw_proxy:
     external: true
 
 configs:
