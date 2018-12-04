@@ -11,7 +11,7 @@ configs:
 services:
 
   socat:
-    image: devmtl/socatproxy:1.0B
+    image: devmtl/socatproxy:edge_2018-12-04_11H19
     networks:
       - ntw_front
     volumes:
@@ -33,7 +33,7 @@ services:
         - "traefik.enable=false"
 
   traefik:
-    image: traefik:1.7.4-alpine
+    image: traefik:1.7.5-alpine
     ports:
     - target: 80
       protocol: tcp
