@@ -9,7 +9,7 @@ This docker stack will run many services (Traefik, Socat, Portainer, Nginx, Cadd
 
 ```
 ENV_STABLE_BRANCH="1.50"
-ENV_EDGE_BRANCH="1.50"
+ENV_EDGE_BRANCH="1.51"
 ENV_MONOREPO="traefik_stack5"
 
 # setup the stack
