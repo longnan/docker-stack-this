@@ -12,7 +12,7 @@ This docker stack will run many services (Traefik, Socat, Portainer, Nginx, Cadd
 
 ```
 # --- Setup the stack ---
-ENV_STABLE_BRANCH="1.52"
+ENV_STABLE_BRANCH="master"
 ENV_MONOREPO="traefik_stack5"
 
 # --- Setup the stack ---

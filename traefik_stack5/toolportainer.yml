@@ -28,7 +28,7 @@ services:
           memory: 4M
       labels:
         - "traefik.backend=portainer"
-        - "traefik.frontend.rule=PathPrefixStrip:/portainer-avril"
+        - "traefik.frontend.rule=PathPrefixStrip:/portainer"
         - "traefik.port=9000"
         - "traefik.enable=true"
         - "traefik.docker.network=ntw_front"
@@ -36,9 +36,9 @@ services:
         - "traefik.backend.loadbalancer.swarm=true"
         - "traefik.backend.loadbalancer.method=drr"
         ## Bug fix / https://github.com/containous/traefik/issues/563#issuecomment-421360934
-        - "traefik.frontend.redirect.regex=^(.*)/portainer-avril$$"
-        - "traefik.frontend.redirect.replacement=$$1/portainer-avril/"
-        - "traefik.frontend.rule=PathPrefix:/portainer-avril;ReplacePathRegex: ^/portainer-avril/(.*) /$$1"
+        - "traefik.frontend.redirect.regex=^(.*)/portainer$$"
+        - "traefik.frontend.redirect.replacement=$$1/portainer/"
+        - "traefik.frontend.rule=PathPrefix:/portainer;ReplacePathRegex: ^/portainer/(.*) /$$1"
 
   agent:
     image: portainer/agent
