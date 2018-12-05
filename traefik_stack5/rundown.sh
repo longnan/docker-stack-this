@@ -85,6 +85,8 @@ docker stack rm toolproxy || true; echo; sleep 1;
 
 docker stack rm toolweb || true; echo; sleep 1;
 
+docker stack rm toolportainer || true; echo; sleep 1;
+
 docker stack rm toolmonitor || true; echo; sleep 1;
 
 #echo; echo "Remove network ..."
