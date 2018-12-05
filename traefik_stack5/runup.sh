@@ -125,8 +125,11 @@ docker stack deploy toolwebapp -c toolwebapp.yml
 echo; echo; sleep 2
 
 # portainer
-docker stack deploy toolportainer -c toolportainer.yml
-echo; echo; sleep 2
+    # bypassing as there is now an official stack
+    # https://portainer.readthedocs.io/en/stable/deployment.html#inside-a-swarm-cluster
+
+    #docker stack deploy toolportainer -c toolportainer.yml
+    #echo; echo; sleep 2
 
 # wordpress
     # the system is path is at ./docker-stack5
