@@ -6,8 +6,8 @@ services:
     image: devmtl/caddyfire:0.11.1-d
     networks:
       - ntw_front
-    volumes:
-      - ./www/home/srv:/srv
+    #volumes:
+    #  - ./www/home/srv:/srv:ro
     deploy:
       mode: replicated
       replicas: 2
@@ -39,8 +39,8 @@ services:
     image: devmtl/caddyfire:0.11.1-d
     networks:
       - ntw_front
-    volumes:
-      - ./www/who1/srv:/srv
+    #volumes:
+    #  - ./www/who1/srv:/srv:ro
     deploy:
       mode: replicated
       replicas: 2
