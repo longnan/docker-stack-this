@@ -7,7 +7,7 @@ services:
     networks:
       - ntw_front
     volumes:
-      - ./www/home/srv/:/srv/
+      - ./www/home/srv:/srv
     deploy:
       mode: replicated
       replicas: 2
@@ -40,7 +40,7 @@ services:
     networks:
       - ntw_front
     volumes:
-      - ./www/who1/html/:/usr/share/nginx/html/
+      - ./www/who1/srv:/srv
     deploy:
       mode: replicated
       replicas: 2

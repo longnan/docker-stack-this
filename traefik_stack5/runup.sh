@@ -139,12 +139,12 @@ echo; sleep 1;
 # List
 echo; echo "docker stack ls ..."
 docker stack ls;
-echo; echo ; sleep 2
+echo ; sleep 2
+docker image ls;
+echo ; sleep 2
 
 
 # Follow deployment in real time
-#watch docker service ls
-echo; echo;
 
 MIN="1"
 MAX="8"
