@@ -82,20 +82,23 @@ http://pwd10-0-7-3-80.host1.labs.play-with-docker.com/portainer/
 
 The container for the first URL is actually named `home`.
 
-
 #### Web apps details:
-- **/** = [caddy](https://hub.docker.com/r/abiosoft/caddy/)
-- **/who1/** = [nginx](https://hub.docker.com/_/nginx/)
+- **/** = [caddy](https://github.com/pascalandy/caddy-securityheader)
+- **/who1/** = [caddy](https://github.com/pascalandy/caddy-securityheader)
 - **/who2/** = [whoami](https://hub.docker.com/r/emilevauge/whoami/)
 - **/portainer/** = [portainer](https://hub.docker.com/r/portainer/portainer/)
 
 Portainer requires a slash `/` at the end of the path. There is something to tweak with Traefik Labels in order for it to accept the proxy the request without the slash `/` at the end.
 
+#### About Caddy
+
+I made a solid container out of it. See details:
+https://github.com/pascalandy/caddy-securityheader
+
 #### Anything special about this mono repo?
 
 - This stack does not use ACME (https://). ACME is a pain while developping … reaching limits, etc.
 - If you don’t want to use socat, checkout the monorepo `traefik-manager-noacme`
-
 
 ## Screenshots
 
