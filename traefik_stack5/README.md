@@ -27,7 +27,7 @@ cd "$ENV_MONOREPO" && \
 
 ```
 # --- Setup the stack ---
-ENV_EDGE_BRANCH="1.53"
+ENV_EDGE_BRANCH="1.54"
 ENV_MONOREPO="traefik_stack5"
 
 # --- Setup the stack ---
