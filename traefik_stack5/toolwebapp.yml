@@ -3,7 +3,7 @@ version: '3.3'
 services:
 
   home:
-    image: devmtl/caddyfire:0.11.1-B
+    image: devmtl/caddyfire:0.11.1-d
     networks:
       - ntw_front
     volumes:
@@ -36,7 +36,7 @@ services:
       - "traefik.backend.loadbalancer.method=drr"
 
   who1:
-    image: nginx:1.13.12-alpine
+    image: devmtl/caddyfire:0.11.1-d
     networks:
       - ntw_front
     volumes:
