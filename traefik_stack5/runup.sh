@@ -80,87 +80,92 @@ function main() {
 # --- edit YOUR SCRIPT HERE
 function goto_myscript() {
 
-# play-with-docker is ready
-docker run --rm devmtl/figlet:1.0 lauching stacks; sleep 2; echo;
+    # play-with-docker is ready
+    docker run --rm devmtl/figlet:1.0 lauching stacks; sleep 2; echo;
 
-# Stop
-echo; echo "If existing, remove stacks: "
-./rundown.sh
-
-# Create Network
-echo; echo "If not existing, create our network: "
-
-NTW_FRONT="ntw_front"
-
-if [ ! "$(docker network ls --filter name=${NTW_FRONT} -q)" ]; then
-    docker network create --driver overlay --attachable --opt encrypted "${NTW_FRONT}"
-    echo "Network: ${NTW_FRONT} was created."
-else
-    echo "Network: ${NTW_FRONT} already exist."
-fi
-
-NTW_PROXY="ntw_proxy"
-
-if [ ! "$(docker network ls --filter name=${NTW_PROXY} -q)" ]; then
-    docker network create --driver overlay --attachable --opt encrypted "${NTW_PROXY}"
-    echo "Network: ${NTW_PROXY} was created."
-else
-    echo "Network: ${NTW_PROXY} already exist."
-fi
-
-echo; echo "Show network..."
-docker network ls | grep "ntw_"
-echo; echo; sleep 2
-
-# The Stack
-echo "Start the stacks ..."; echo; echo;
-
-# traefik
-docker stack deploy toolproxy -c toolproxy.yml
-echo; sleep 1;
-
-# webapps
-docker stack deploy toolwebapp -c toolwebapp.yml
-echo; sleep 1;
-
-    # testing as there is now an official stack
-    # https://portainer.readthedocs.io/en/stable/deployment.html#inside-a-swarm-cluster
-docker stack deploy toolgui -c toolportainer.yml
-echo; sleep 1;
-
-# wordpress
-    # the system is path is at ./docker-stack5
-#_MYSQL_DIR="$(pwd)/html/db/mysql"
-#mkdir -p "$_MYSQL_DIR"
-
-#docker stack deploy toolwp -c toolwp.yml
-echo; sleep 1;
-
-# List
-echo; echo "docker stack ls ..."
-docker stack ls;
-echo ; sleep 2
-docker image ls;
-echo ; sleep 2
+    # Stop
+    echo; echo "If existing, remove stacks: "
+    ./rundown.sh
 
 
-# Follow deployment in real time
+    # Create Network
+    echo; echo "If not existing, create our network: "
 
-MIN="1"
-MAX="8"
-for ACTION in $(seq ${MIN} ${MAX}); do
-  echo
-  echo "docker service ls | Check ${ACTION}" of ${MAX}; echo;
-  docker service ls && echo && sleep 2;
-done
-echo; echo ; sleep 2
+    NTW_FRONT="ntw_front"
 
-# See Traefik logs
-echo "To see Traefik logs type: "; sleep 1;
-echo "  docker service logs -f toolproxy_traefik"; echo; sleep 1;
+    if [ ! "$(docker network ls --filter name=${NTW_FRONT} -q)" ]; then
+        docker network create --driver overlay --attachable --opt encrypted "${NTW_FRONT}"
+        echo "Network: ${NTW_FRONT} was created."
+    else
+        echo "Network: ${NTW_FRONT} already exist."
+    fi
 
-# play-with-docker is ready
-docker run --rm devmtl/figlet:1.0 Your turn; echo;
+    NTW_PROXY="ntw_proxy"
+
+    if [ ! "$(docker network ls --filter name=${NTW_PROXY} -q)" ]; then
+        docker network create --driver overlay --attachable --opt encrypted "${NTW_PROXY}"
+        echo "Network: ${NTW_PROXY} was created."
+    else
+        echo "Network: ${NTW_PROXY} already exist."
+    fi
+
+    echo; echo "Show network..."
+    docker network ls | grep "ntw_"
+    echo; echo; sleep 2
+
+
+    # The Stack
+    echo "Start the stacks ..."; echo; echo;
+
+    # traefik
+    docker stack deploy toolproxy -c toolproxy.yml
+    echo; sleep 1;
+
+    # webapps
+    docker stack deploy toolwebapp -c toolwebapp.yml
+    echo; sleep 1;
+
+        # testing as there is now an official stack
+        # https://portainer.readthedocs.io/en/stable/deployment.html#inside-a-swarm-cluster
+    docker stack deploy toolgui -c toolportainer.yml
+    echo; sleep 1;
+
+    # wordpress
+        # the system is path is at ./docker-stack5
+    #_MYSQL_DIR="$(pwd)/html/db/mysql"
+    #mkdir -p "$_MYSQL_DIR"
+
+    #docker stack deploy toolwp -c toolwp.yml
+    echo; sleep 1;
+
+
+    # List
+    echo; echo "docker stack ls ..."
+    docker stack ls;
+    echo ; sleep 2
+
+    echo; echo "docker image ls ..."
+    docker image ls;
+    echo ; sleep 2
+
+
+    # Follow deployment in real time
+
+    MIN="1"
+    MAX="8"
+    for ACTION in $(seq ${MIN} ${MAX}); do
+    echo
+    echo "docker service ls | Check ${ACTION}" of ${MAX}; echo;
+    docker service ls && echo && sleep 2;
+    done
+    echo; echo ; sleep 2
+
+    # See Traefik logs
+    echo "To see Traefik logs type: "; sleep 1;
+    echo "  docker service logs -f toolproxy_traefik"; echo; sleep 1;
+
+    # play-with-docker is ready
+    docker run --rm devmtl/figlet:1.0 Your turn; echo;
 
 }
 
