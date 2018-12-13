@@ -1,55 +1,36 @@
-version: '3.7'
+version: '2'
 
-# docker stack deploy -c toolwp.yml wordpress
+# docker stack deploy -c toolwp.yml toolwp
 
 services:
 
+  mariadb:
+    image: 'bitnami/mariadb:latest'
+    volumes:
+      - 'mariadb_data:/bitnami'
+    environment:
+      - MARIADB_USER=bn_wordpress
+      - MARIADB_DATABASE=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
+
   wordpress:
-    depends_on:
-      - db
-    image: wordpress:5
-    restart: always
-    volumes:
-      - ./wp-content:/var/www/html/wp-content 
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: user1
-      WORDPRESS_DB_PASSWORD: Fancypass
-      WORDPRESS_DB_NAME: wpdb
+    image: 'bitnami/wordpress:5'
     ports:
-      - 8181:80
-    #  - 443:443
-    networks:
-      - back
-
-  db:
-    image: mysql:5.7
-    restart: always
+      - '8181:80'
+      #- '443:443'
     volumes:
-       - db_data:/var/lib/mysql
-    environment:
-    environment:
-      MYSQL_DATABASE: wpdb
-      MYSQL_USER: user1
-      MYSQL_PASSWORD: Fancypass
-      MYSQL_RANDOM_ROOT_PASSWORD: Fancypass
-    networks:
-      - back
-
-  phpmyadmin:
+      - 'wordpress_data:/bitnami'
     depends_on:
-      - db
-    image: phpmyadmin/phpmyadmin:4.7.9-1
-    restart: always
-    ports:
-      - 8182:80
+      - mariadb
     environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: Fancypass
-    networks:
-      - back
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_USER=bn_wordpress
+      - WORDPRESS_DATABASE_NAME=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
 
-networks:
-  back:
 volumes:
-  db_data:
+  mariadb_data:
+    driver: local
+  wordpress_data:
+    driver: local
