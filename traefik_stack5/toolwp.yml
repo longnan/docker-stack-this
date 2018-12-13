@@ -18,7 +18,7 @@ services:
       WORDPRESS_DB_NAME: wpdb
     ports:
       - 8181:80
-      - 443:443
+    #  - 443:443
     networks:
       - back
 
