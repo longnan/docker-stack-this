@@ -89,12 +89,8 @@ services:
         - "traefik.frontend.rule=PathPrefixStrip:/traefik"
         - "traefik.backend=traefik"
         - "traefik.enable=true"
-        #- "traefik.logLevel=DEBUG"
+        - "traefik.logLevel=DEBUG"
         - "traefik.port=8080"
-        - "traefik.passHostHeader=true"
-        - "traefik.frontend.entryPoints=http"
-        - "traefik.backend.loadbalancer.method=wrr"
-        - "traefik.backend.loadbalancer.swarm=true"
 
 
 # by Pascal Andy | https://pascalandy.com/
