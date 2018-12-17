@@ -26,9 +26,9 @@ cd "$ENV_MONOREPO" && \
 #### EDGE setup (not recommanded)
 
 ```
-echo "CONFIGURE ENV_VAR"
-ENV_EDGE_BRANCH="1.54"
-ENV_MONOREPO="traefik_stack5"
+echo "CONFIGURE ENV_VAR" && \
+ENV_EDGE_BRANCH="1.54";
+ENV_MONOREPO="traefik_stack5";
 
 echo "Setup the stack" && \
 source <(curl -s https://raw.githubusercontent.com/pascalandy/docker-stack-this/master/play-with-docker-setup.sh) && \
