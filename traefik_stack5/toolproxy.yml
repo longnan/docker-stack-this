@@ -65,7 +65,6 @@ services:
       --docker.watch \
       --debug=true \
       --logLevel=WARN \
-      --web \
       --web.metrics.prometheus \
       --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0" \
       --web.address=:8080

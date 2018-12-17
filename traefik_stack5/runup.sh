@@ -113,6 +113,7 @@ function goto_myscript() {
     echo "Start the stacks ...";
 
     # traefik
+    chmod 600 ./configs/acme.json
     docker stack deploy toolproxy -c toolproxy.yml;
     echo; sleep 1;
 
