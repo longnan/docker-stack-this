@@ -6,8 +6,8 @@ services:
     image: devmtl/caddyfire:0.11.1-F
     networks:
       - ntw_front
-    #volumes:
-    #  - ./www/home/srv:/srv:ro
+    volumes:
+      - ./www/home/srv:/srv
     deploy:
       mode: replicated
       replicas: 2
@@ -18,11 +18,11 @@ services:
         max_attempts: 5
       resources:
         limits:
-          cpus: '0.20'
-          memory: 18M
+          cpus: '0.50'
+          memory: 32M
         reservations:
           cpus: '0.20'
-          memory: 6M
+          memory: 4M
       labels:
       - "traefik.frontend.rule=PathPrefixStrip:/"
       - "traefik.backend=home"
@@ -39,23 +39,23 @@ services:
     image: devmtl/caddyfire:0.11.1-F
     networks:
       - ntw_front
-    #volumes:
-    #  - ./www/who1/srv:/srv:ro
+    volumes:
+      - ./www/who1/srv:/srv
     deploy:
       mode: replicated
       replicas: 2
       #placement:
       #  constraints: [node.role==manager]
       restart_policy:
-        condition: on-failure
-        max_attempts: 5
+        condition: any
+        max_attempts: 10
       resources:
         limits:
-          cpus: '0.20'
-          memory: 18M
+          cpus: '0.50'
+          memory: 32M
         reservations:
           cpus: '0.05'
-          memory: 6M
+          memory: 4M
       labels:
       - "traefik.frontend.rule=PathPrefixStrip:/who1"
       - "traefik.backend=who1"
@@ -78,8 +78,8 @@ services:
       #placement:
       #  constraints: [node.role==manager]
       restart_policy:
-        condition: on-failure
-        max_attempts: 5
+        condition: any
+        max_attempts: 10
       resources:
         limits:
           cpus: '0.20'
