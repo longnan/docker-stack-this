@@ -46,10 +46,10 @@ services:
       protocol: tcp
       published: 443
       mode: ingress
-    #- target: 8080
-    #  protocol: tcp
-    #  published: 8080
-    #  mode: ingress
+    - target: 8080
+      protocol: tcp
+      published: 8080
+      mode: ingress
     networks:
       - ntw_front
       - ntw_proxy
@@ -86,12 +86,14 @@ services:
           cpus: '0.05'
           memory: 48M
       labels:
-        - "traefik.frontend.rule=PathPrefixStrip:/traefik"
         - "traefik.backend=traefik"
         - "traefik.enable=true"
         - "traefik.logLevel=DEBUG"
         - "traefik.port=8080"
-
+        - "traefik.passHostHeader=true"
+        - "traefik.frontend.entryPoints=http"
+        - "traefik.backend.loadbalancer.method=wrr"
+        - "traefik.backend.loadbalancer.swarm=true"
 
 # by Pascal Andy | https://pascalandy.com/
 # https://github.com/pascalandy/docker-stack-this
