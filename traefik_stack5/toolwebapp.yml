@@ -1,9 +1,9 @@
-version: '3.3'
+version: '3.7'
 
 services:
 
   home:
-    image: devmtl/caddyfire:0.11.1-d
+    image: devmtl/caddyfire:0.11.1-F
     networks:
       - ntw_front
     #volumes:
@@ -29,14 +29,14 @@ services:
       - "traefik.port=2015"
       - "traefik.weight=10"
       - "traefik.enable=true"
-      #- "traefik.passHostHeader=true"
+      - "traefik.passHostHeader=true"
       - "traefik.docker.network=ntw_front"
       - "traefik.frontend.entryPoints=http"
       - "traefik.backend.loadbalancer.swarm=true"
       - "traefik.backend.loadbalancer.method=drr"
 
   who1:
-    image: devmtl/caddyfire:0.11.1-d
+    image: devmtl/caddyfire:0.11.1-F
     networks:
       - ntw_front
     #volumes:
@@ -62,7 +62,7 @@ services:
       - "traefik.port=80"
       - "traefik.weight=10"
       - "traefik.enable=true"
-      #- "traefik.passHostHeader=true"
+      - "traefik.passHostHeader=true"
       - "traefik.docker.network=ntw_front"
       - "traefik.frontend.entryPoints=http"
       - "traefik.backend.loadbalancer.swarm=true"

@@ -1,5 +1,5 @@
 /*
-	Story by HTML5 UP
+	Highlights by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
@@ -7,28 +7,72 @@
 (function($) {
 
 	skel.breakpoints({
-		xlarge: '(max-width: 1680px)',
-		large: '(max-width: 1280px)',
+		large: '(max-width: 1680px)',
 		medium: '(max-width: 980px)',
 		small: '(max-width: 736px)',
-		xsmall: '(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
+		xsmall: '(max-width: 480px)'
 	});
 
 	$(function() {
 
 		var	$window = $(window),
 			$body = $('body'),
-			$wrapper = $('#wrapper');
+			$html = $('html');
 
 		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
+			$html.addClass('is-loading');
 
 			$window.on('load', function() {
 				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
+					$html.removeClass('is-loading');
+				}, 0);
 			});
+
+		// Touch mode.
+			if (skel.vars.mobile) {
+
+				var $wrapper;
+
+				// Create wrapper.
+					$body.wrapInner('<div id="wrapper" />');
+					$wrapper = $('#wrapper');
+
+					// Hack: iOS vh bug.
+						if (skel.vars.os == 'ios')
+							$wrapper
+								.css('margin-top', -25)
+								.css('padding-bottom', 25);
+
+					// Pass scroll event to window.
+						$wrapper.on('scroll', function() {
+							$window.trigger('scroll');
+						});
+
+				// Scrolly.
+					$window.on('load.hl_scrolly', function() {
+
+						$('.scrolly').scrolly({
+							speed: 1500,
+							parent: $wrapper,
+							pollOnce: true
+						});
+
+						$window.off('load.hl_scrolly');
+
+					});
+
+				// Enable touch mode.
+					$html.addClass('is-touch');
+
+			}
+			else {
+
+				// Scrolly.
+					$('.scrolly').scrolly({
+						speed: 1500
+					});
+
+			}
 
 		// Fix: Placeholder polyfill.
 			$('form').placeholder();
@@ -41,316 +85,134 @@
 				);
 			});
 
-		// Browser fixes.
+		// Header.
+			var $header = $('#header'),
+				$headerTitle = $header.find('header'),
+				$headerContainer = $header.find('.container');
 
-			// IE: Flexbox min-height bug.
-				if (skel.vars.browser == 'ie')
-					(function() {
+			// Make title fixed.
+				if (!skel.vars.mobile) {
 
-						var flexboxFixTimeoutId;
+					$window.on('load.hl_headerTitle', function() {
 
-						$window.on('resize.flexbox-fix', function() {
+						skel.on('-medium !medium', function() {
 
-							var $x = $('.fullscreen');
-
-							clearTimeout(flexboxFixTimeoutId);
-
-							flexboxFixTimeoutId = setTimeout(function() {
-
-								if ($x.prop('scrollHeight') > $window.height())
-									$x.css('height', 'auto');
-								else
-									$x.css('height', '100vh');
-
-							}, 250);
-
-						}).triggerHandler('resize.flexbox-fix');
-
-					})();
-
-			// Object fit workaround.
-				if (!skel.canUse('object-fit'))
-					(function() {
-
-						$('.banner .image, .spotlight .image').each(function() {
-
-							var $this = $(this),
-								$img = $this.children('img'),
-								positionClass = $this.parent().attr('class').match(/image-position-([a-z]+)/);
-
-							// Set image.
-								$this
-									.css('background-image', 'url("' + $img.attr('src') + '")')
-									.css('background-repeat', 'no-repeat')
-									.css('background-size', 'cover');
-
-							// Set position.
-								switch (positionClass.length > 1 ? positionClass[1] : '') {
-
-									case 'left':
-										$this.css('background-position', 'left');
-										break;
-
-									case 'right':
-										$this.css('background-position', 'right');
-										break;
-
-									default:
-									case 'center':
-										$this.css('background-position', 'center');
-										break;
-
-								}
-
-							// Hide original.
-								$img.css('opacity', '0');
+							$headerTitle
+								.css('position', 'fixed')
+								.css('height', 'auto')
+								.css('top', '50%')
+								.css('left', '0')
+								.css('width', '100%')
+								.css('margin-top', ($headerTitle.outerHeight() / -2));
 
 						});
 
-					})();
+						skel.on('+medium', function() {
 
-		// Smooth scroll.
-			$('.smooth-scroll').scrolly();
-			$('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
+							$headerTitle
+								.css('position', '')
+								.css('height', '')
+								.css('top', '')
+								.css('left', '')
+								.css('width', '')
+								.css('margin-top', '');
 
-		// Wrapper.
-			$wrapper.children()
-				.scrollex({
-					top:		'30vh',
-					bottom:		'30vh',
-					initialize:	function() {
-						$(this).addClass('is-inactive');
-					},
-					terminate:	function() {
-						$(this).removeClass('is-inactive');
-					},
-					enter:		function() {
-						$(this).removeClass('is-inactive');
-					},
-					leave:		function() {
+						});
 
-						var $this = $(this);
-
-						if ($this.hasClass('onscroll-bidirectional'))
-							$this.addClass('is-inactive');
-
-					}
-				});
-
-		// Items.
-			$('.items')
-				.scrollex({
-					top:		'30vh',
-					bottom:		'30vh',
-					delay:		50,
-					initialize:	function() {
-						$(this).addClass('is-inactive');
-					},
-					terminate:	function() {
-						$(this).removeClass('is-inactive');
-					},
-					enter:		function() {
-						$(this).removeClass('is-inactive');
-					},
-					leave:		function() {
-
-						var $this = $(this);
-
-						if ($this.hasClass('onscroll-bidirectional'))
-							$this.addClass('is-inactive');
-
-					}
-				})
-				.children()
-					.wrapInner('<div class="inner"></div>');
-
-		// Gallery.
-			$('.gallery')
-				.wrapInner('<div class="inner"></div>')
-				.prepend(skel.vars.mobile ? '' : '<div class="forward"></div><div class="backward"></div>')
-				.scrollex({
-					top:		'30vh',
-					bottom:		'30vh',
-					delay:		50,
-					initialize:	function() {
-						$(this).addClass('is-inactive');
-					},
-					terminate:	function() {
-						$(this).removeClass('is-inactive');
-					},
-					enter:		function() {
-						$(this).removeClass('is-inactive');
-					},
-					leave:		function() {
-
-						var $this = $(this);
-
-						if ($this.hasClass('onscroll-bidirectional'))
-							$this.addClass('is-inactive');
-
-					}
-				})
-				.children('.inner')
-					//.css('overflow', 'hidden')
-					.css('overflow-y', skel.vars.mobile ? 'visible' : 'hidden')
-					.css('overflow-x', skel.vars.mobile ? 'scroll' : 'hidden')
-					.scrollLeft(0);
-
-			// Style #1.
-				// ...
-
-			// Style #2.
-				$('.gallery')
-					.on('wheel', '.inner', function(event) {
-
-						var	$this = $(this),
-							delta = (event.originalEvent.deltaX * 10);
-
-						// Cap delta.
-							if (delta > 0)
-								delta = Math.min(25, delta);
-							else if (delta < 0)
-								delta = Math.max(-25, delta);
-
-						// Scroll.
-							$this.scrollLeft( $this.scrollLeft() + delta );
-
-					})
-					.on('mouseenter', '.forward, .backward', function(event) {
-
-						var $this = $(this),
-							$inner = $this.siblings('.inner'),
-							direction = ($this.hasClass('forward') ? 1 : -1);
-
-						// Clear move interval.
-							clearInterval(this._gallery_moveIntervalId);
-
-						// Start interval.
-							this._gallery_moveIntervalId = setInterval(function() {
-								$inner.scrollLeft( $inner.scrollLeft() + (5 * direction) );
-							}, 10);
-
-					})
-					.on('mouseleave', '.forward, .backward', function(event) {
-
-						// Clear move interval.
-							clearInterval(this._gallery_moveIntervalId);
+						$window.off('load.hl_headerTitle');
 
 					});
 
-			// Lightbox.
-				$('.gallery.lightbox')
-					.on('click', 'a', function(event) {
+				}
 
-						var $a = $(this),
-							$gallery = $a.parents('.gallery'),
-							$modal = $gallery.children('.modal'),
-							$modalImg = $modal.find('img'),
-							href = $a.attr('href');
+			// Scrollex.
+				skel.on('-small !small', function() {
+					$header.scrollex({
+						terminate: function() {
 
-						// Not an image? Bail.
-							if (!href.match(/\.(jpg|gif|png|mp4)$/))
-								return;
+							$headerTitle.css('opacity', '');
 
-						// Prevent default.
-							event.preventDefault();
-							event.stopPropagation();
+						},
+						scroll: function(progress) {
 
-						// Locked? Bail.
-							if ($modal[0]._locked)
-								return;
+							// Fade out title as user scrolls down.
+								if (progress > 0.5)
+									x = 1 - progress;
+								else
+									x = progress;
 
-						// Lock.
-							$modal[0]._locked = true;
+								$headerTitle.css('opacity', Math.max(0, Math.min(1, x * 2)));
 
-						// Set src.
-							$modalImg.attr('src', href);
+						}
+					});
+				});
 
-						// Set visible.
-							$modal.addClass('visible');
+				skel.on('+small', function() {
 
-						// Focus.
-							$modal.focus();
+					$header.unscrollex();
 
-						// Delay.
-							setTimeout(function() {
+				});
 
-								// Unlock.
-									$modal[0]._locked = false;
+		// Main sections.
+			$('.main').each(function() {
 
-							}, 600);
+				var $this = $(this),
+					$primaryImg = $this.find('.image.primary > img'),
+					$bg,
+					options;
 
-					})
-					.on('click', '.modal', function(event) {
+				// No primary image? Bail.
+					if ($primaryImg.length == 0)
+						return;
 
-						var $modal = $(this),
-							$modalImg = $modal.find('img');
+				// Hack: IE8 fallback.
+					if (skel.vars.IEVersion < 9) {
 
-						// Locked? Bail.
-							if ($modal[0]._locked)
-								return;
+						$this
+							.css('background-image', 'url("' + $primaryImg.attr('src') + '")')
+							.css('-ms-behavior', 'url("css/ie/backgroundsize.min.htc")');
 
-						// Already hidden? Bail.
-							if (!$modal.hasClass('visible'))
-								return;
+						return;
 
-						// Lock.
-							$modal[0]._locked = true;
+					}
 
-						// Clear visible, loaded.
-							$modal
-								.removeClass('loaded')
+				// Create bg and append it to body.
+					$bg = $('<div class="main-bg" id="' + $this.attr('id') + '-bg"></div>')
+						.css('background-image', (
+							'url("assets/css/images/overlay.png"), url("' + $primaryImg.attr('src') + '")'
+						))
+						.appendTo($body);
 
-						// Delay.
-							setTimeout(function() {
+				// Scrollex.
+					options = {
+						mode: 'middle',
+						delay: 200,
+						top: '-10vh',
+						bottom: '-10vh'
+					};
 
-								$modal
-									.removeClass('visible')
+					if (skel.canUse('transition')) {
 
-								setTimeout(function() {
+						options.init = function() { $bg.removeClass('active'); };
+						options.enter = function() { $bg.addClass('active'); };
+						options.leave = function() { $bg.removeClass('active'); };
 
-									// Clear src.
-										$modalImg.attr('src', '');
+					}
+					else {
 
-									// Unlock.
-										$modal[0]._locked = false;
+						$bg
+							.css('opacity', 1)
+							.hide();
 
-									// Focus.
-										$body.focus();
+						options.init = function() { $bg.fadeOut(0); };
+						options.enter = function() { $bg.fadeIn(400); };
+						options.leave = function() { $bg.fadeOut(400); };
 
-								}, 475);
+					}
 
-							}, 125);
+					$this.scrollex(options);
 
-					})
-					.on('keypress', '.modal', function(event) {
-
-						var $modal = $(this);
-
-						// Escape? Hide modal.
-							if (event.keyCode == 27)
-								$modal.trigger('click');
-
-					})
-					.prepend('<div class="modal" tabIndex="-1"><div class="inner"><img src="" /></div></div>')
-						.find('img')
-							.on('load', function(event) {
-
-								var $modalImg = $(this),
-									$modal = $modalImg.parents('.modal');
-
-								setTimeout(function() {
-
-									// No longer visible? Bail.
-										if (!$modal.hasClass('visible'))
-											return;
-
-									// Set loaded.
-										$modal.addClass('loaded');
-
-								}, 275);
-
-							});
+			});
 
 	});
 
