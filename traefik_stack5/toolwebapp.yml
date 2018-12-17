@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   home:
-    image: devmtl/caddyfire:0.11.1-F
+    image: abiosoft/caddy:0.11.1-no-stats
     networks:
       - ntw_front
     volumes:
@@ -14,8 +14,8 @@ services:
       #placement:
       #  constraints: [node.role==manager]
       restart_policy:
-        condition: on-failure
-        max_attempts: 5
+        condition: any
+        max_attempts: 10
       resources:
         limits:
           cpus: '0.50'
@@ -36,7 +36,7 @@ services:
       - "traefik.backend.loadbalancer.method=drr"
 
   who1:
-    image: devmtl/caddyfire:0.11.1-F
+    image: abiosoft/caddy:0.11.1-no-stats
     networks:
       - ntw_front
     volumes:
@@ -59,7 +59,7 @@ services:
       labels:
       - "traefik.frontend.rule=PathPrefixStrip:/who1"
       - "traefik.backend=who1"
-      - "traefik.port=80"
+      - "traefik.port=2015"
       - "traefik.weight=10"
       - "traefik.enable=true"
       - "traefik.passHostHeader=true"
