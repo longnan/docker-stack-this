@@ -109,24 +109,26 @@ The container for the first URL is actually named `home`.
 
 This password is encrypted in our configs `.configs/traefik.toml`
 
-To generate yours your htpasswd`, you can use my container:
+To quickly generate yours with htpasswd, use my container:
 
 ```
 docker run --rm -it devmtl/alpinefire:3.8-D sh -c 'htpasswd -Bbn admin changethispass'  
 ``` 
 
-This will display something like:
+This will display:
 
 ``` 
 admin:$2y$05$pAfipn3.brdHMI2eWGnYH.84XYqLozp1sUPi36/l54UAwv.zGLtNC
 ```
 
-Insert this string in `.configs/traefik.toml`.
+Insert this string in your `.configs/traefik.toml`.
 
 #### What is Traefik?
+
 [Traefik](https://docs.traefik.io/configuration/backends/docker/) is a powerful layer 7 reverse proxy. Once running, the proxy will give you access to many web apps. I think this is a solid use cases to understand how this reverse-proxy works.
 
 #### Traefik version 
+
 In `toolproxy.yml` look for something like `traefik:1.7.6`.
 
 In some mono-repo I **my own traefik image**. Feel free to use the official images. It will not break anything.
@@ -156,13 +158,9 @@ In the active path, just execute those bash-scripts:
 
 **Bonus!** `./runctop.sh` is not a stack but a simple docker run to see the memory consumed by each containers.
 
-## Backlog
-Here is what’s missing to make this stack perfect?
+## ToDo
  
-- Secure traefik dashboard
 - Use SSL endpoints (ACME)
-- Fix the need to use a trailing slash `/` at the end of Portainer service
-
 
 ## Contributing
 
@@ -180,21 +178,7 @@ Thanks to the power of communities, this is where `1 + 1 = 3`.
 - View the **GNU** license information at https://github.com/pascalandy/GNU-GENERAL-PUBLIC-LICENSE
 - This Git repo is available at https://github.com/pascalandy/docker-stack-this
 
-
-## Author
-
-In the world of OSS (open source software) most people refer themselves as maintainers. The thing is… I hate this expression. It feels heavy and not fun. I much prefer author.
-
-
-#### Hosting
-
-Looking to **kick-start your website** (static page + a CMS) ? Take a look at [play-with-ghost](http://play-with-ghost.com/) (another project I shared). It allows you to see and edit websites made with **Ghost**. In short, you can try Ghost on the spot without having to sign up! Just use the dummy email & password provided.
-
-#### I’m looking for help
-
-If you have solid skills 🤓 with Docker Swarm, Linux bash and the gang and you’re looking to help a startup to launch a solid project, I would love to get to know you. Buzz me 👋 on Twitter [@askpascalandy](https://twitter.com/askpascalandy). You can see the things that are done and the things we have to do [here](http://firepress.org/blog/technical-challenges-we-are-facing-now/).
-
-I’m looking for bright and caring people to join this [journey](http://firepress.org/blog/tag/from-the-heart/) with me.
+## Keep in touch
 
 ```
  ____                     _      _              _
@@ -205,4 +189,6 @@ I’m looking for bright and caring people to join this [journey](http://firepre
                                                   |___/
 ```
 
-Shared by [Pascal Andy](https://pascalandy.com/blog/now/). Find me on [Twitter](https://twitter.com/askpascalandy).
+- Pascal Andy’s [« now page »](https://pascalandy.com/blog/now/)
+- Follow me on [Twitter](https://twitter.com/askpascalandy)
+- Find more Ghost Themes on [play-with-ghost.com](https://play-with-ghost.com/)
