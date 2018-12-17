@@ -7,7 +7,7 @@ networks:
 services:
 
   home:
-    image: abiosoft/caddy:0.10.14
+    image: abiosoft/caddy:0.11.1-no-stats
     networks:
       - ntw_front
     #volumes:
@@ -23,8 +23,8 @@ services:
         max_attempts: 10
       resources:
         limits:
-          cpus: '0.50'
-          memory: 32M
+          cpus: '0.20'
+          memory: 16M
         reservations:
           cpus: '0.20'
           memory: 4M
@@ -41,7 +41,7 @@ services:
       #- "traefik.backend.loadbalancer.method=drr"
 
   who1:
-    image: abiosoft/caddy:0.10.14
+    image: nginx:1.15-alpine
     networks:
       - ntw_front
     #volumes:
@@ -57,8 +57,8 @@ services:
         max_attempts: 10
       resources:
         limits:
-          cpus: '0.50'
-          memory: 32M
+          cpus: '0.20'
+          memory: 16M
         reservations:
           cpus: '0.05'
           memory: 4M
