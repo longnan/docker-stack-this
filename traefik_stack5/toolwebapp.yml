@@ -32,13 +32,13 @@ services:
       - "traefik.frontend.rule=PathPrefixStrip:/"
       - "traefik.backend=home"
       - "traefik.port=2015"
-      #- "traefik.weight=10"
-      #- "traefik.enable=true"
-      #- "traefik.passHostHeader=true"
+      - "traefik.weight=10"
+      - "traefik.enable=true"
+      - "traefik.passHostHeader=true"
       - "traefik.docker.network=ntw_front"
-      #- "traefik.frontend.entryPoints=http"
-      #- "traefik.backend.loadbalancer.swarm=true"
-      #- "traefik.backend.loadbalancer.method=drr"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.backend.loadbalancer.swarm=true"
+      - "traefik.backend.loadbalancer.method=drr"
 
   who1:
     image: nginx:1.15-alpine
@@ -65,14 +65,14 @@ services:
       labels:
       - "traefik.frontend.rule=PathPrefixStrip:/who1"
       - "traefik.backend=who1"
-      - "traefik.port=2015"
-      #- "traefik.weight=10"
-      #- "traefik.enable=true"
-      #- "traefik.passHostHeader=true"
+      - "traefik.port=80"
+      - "traefik.weight=10"
+      - "traefik.enable=true"
+      - "traefik.passHostHeader=true"
       - "traefik.docker.network=ntw_front"
-      #- "traefik.frontend.entryPoints=http"
-      #- "traefik.backend.loadbalancer.swarm=true"
-      #- "traefik.backend.loadbalancer.method=drr"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.backend.loadbalancer.swarm=true"
+      - "traefik.backend.loadbalancer.method=drr"
 
   who2:
     image: emilevauge/whoami
@@ -105,6 +105,37 @@ services:
       - "traefik.backend.loadbalancer.swarm=true"
       - "traefik.backend.loadbalancer.method=drr"
 
+  who3:
+    image: emilevauge/whoami
+    networks:
+      - ntw_front
+    deploy:
+      mode: replicated
+      replicas: 2
+      #placement:
+      #  constraints: [node.role==manager]
+      restart_policy:
+        condition: any
+        max_attempts: 10
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 8M
+        reservations:
+          cpus: '0.05'
+          memory: 4M
+      labels:
+      - "traefik.frontend.rule=PathPrefixStrip:/who3"
+      - "traefik.backend=who3"
+      - "traefik.port=80"
+      - "traefik.weight=10"
+      - "traefik.enable=true"
+      - "traefik.passHostHeader=true"
+      - "traefik.docker.network=ntw_front"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.backend.loadbalancer.swarm=true"
+      - "traefik.backend.loadbalancer.method=drr"
+      
 # With a real domain name you will need "traefik.frontend.rule=Host:mydummysite.tk"
 #
 # by Pascal Andy | https://pascalandy.com/
