@@ -18,8 +18,10 @@ ENV_MONOREPO="traefik_stack5";
 echo "Setup the stack" && \
 source <(curl -s https://raw.githubusercontent.com/pascalandy/docker-stack-this/master/play-with-docker-setup.sh) && \
 sleep 2 && \
+
 git checkout "$ENV_STABLE_BRANCH" && \
 cd "$ENV_MONOREPO" && \
+
 ./runup.sh;
 ```
 
@@ -33,8 +35,10 @@ ENV_MONOREPO="traefik_stack5";
 echo "Setup the stack" && \
 source <(curl -s https://raw.githubusercontent.com/pascalandy/docker-stack-this/master/play-with-docker-setup.sh) && \
 sleep 2 && \
+
 git checkout "$ENV_EDGE_BRANCH" && \
 cd "$ENV_MONOREPO" && \
+
 ./runup.sh;
 ```
 
