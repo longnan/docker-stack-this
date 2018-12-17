@@ -1,4 +1,4 @@
-defaultEntryPoints = ["http", "https"]
+defaultEntryPoints = ["http"]
 
 [entryPoints]
   [entryPoints.dashboard]
@@ -17,11 +17,11 @@ defaultEntryPoints = ["http", "https"]
 [api]
 entrypoint="dashboard"
 
-[acme]
-email = "your_email@your_domain.net"
-storage = "acme.json"
-entryPoint = "https"
-caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
-onHostRule = true
-  [acme.httpChallenge]
-  entryPoint = "http"
+#[acme]
+#email = "your_email@your_domain.net"
+#storage = "acme.json"
+#entryPoint = "https"
+#caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+#onHostRule = true
+#  [acme.httpChallenge]
+#  entryPoint = "http"
