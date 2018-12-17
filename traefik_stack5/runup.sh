@@ -87,47 +87,41 @@ function goto_myscript() {
     echo; echo "If existing, remove stacks: "
     ./rundown.sh
 
-
     # Create Network
     echo; echo "If not existing, create our network: "
 
     NTW_FRONT="ntw_front"
-
-    if [ ! "$(docker network ls --filter name=${NTW_FRONT} -q)" ]; then
-        docker network create --driver overlay --attachable --opt encrypted "${NTW_FRONT}"
-        echo "Network: ${NTW_FRONT} was created."
-    else
-        echo "Network: ${NTW_FRONT} already exist."
-    fi
+        if [ ! "$(docker network ls --filter name=${NTW_FRONT} -q)" ]; then
+            docker network create --driver overlay --attachable --opt encrypted "${NTW_FRONT}"
+            echo "Network: ${NTW_FRONT} was created."
+        else
+            echo "Network: ${NTW_FRONT} already exist."
+        fi
 
     NTW_PROXY="ntw_proxy"
+        if [ ! "$(docker network ls --filter name=${NTW_PROXY} -q)" ]; then
+            docker network create --driver overlay --attachable --opt encrypted "${NTW_PROXY}"
+            echo "Network: ${NTW_PROXY} was created."
+        else
+            echo "Network: ${NTW_PROXY} already exist."
+        fi
 
-    if [ ! "$(docker network ls --filter name=${NTW_PROXY} -q)" ]; then
-        docker network create --driver overlay --attachable --opt encrypted "${NTW_PROXY}"
-        echo "Network: ${NTW_PROXY} was created."
-    else
-        echo "Network: ${NTW_PROXY} already exist."
-    fi
+    echo; echo "Show network...";
+    docker network ls | grep "ntw_";
+    echo; echo; sleep 2;
 
-    echo; echo "Show network..."
-    docker network ls | grep "ntw_"
-    echo; echo; sleep 2
-
-
-    # The Stack
-    echo "Start the stacks ..."; echo; echo;
+    echo "Start the stacks ...";
 
     # traefik
-    docker stack deploy toolproxy -c toolproxy.yml
+    docker stack deploy toolproxy -c toolproxy.yml;
     echo; sleep 1;
 
     # webapps
-    docker stack deploy toolwebapp -c toolwebapp.yml
+    docker stack deploy toolwebapp -c toolwebapp.yml;
     echo; sleep 1;
 
-        # testing as there is now an official stack
-        # https://portainer.readthedocs.io/en/stable/deployment.html#inside-a-swarm-cluster
-    docker stack deploy toolgui -c toolportainer.yml
+    # gui
+    docker stack deploy toolgui -c toolportainer.yml;
     echo; sleep 1;
 
     # wordpress
@@ -138,21 +132,14 @@ function goto_myscript() {
     #docker stack deploy toolwp -c toolwp.yml
     echo; sleep 1;
 
-
     # List
-    echo; echo "docker stack ls ..."
-    docker stack ls;
-    echo ; sleep 2
-
-    echo; echo "docker image ls ..."
-    docker image ls;
-    echo ; sleep 2
-
+    echo; echo;
+    docker service ls && echo && sleep 2;
 
     # Follow deployment in real time
 
     MIN="1"
-    MAX="8"
+    MAX="10"
     for ACTION in $(seq ${MIN} ${MAX}); do
     echo
     echo "docker service ls | Check ${ACTION}" of ${MAX}; echo;
