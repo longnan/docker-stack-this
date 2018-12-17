@@ -29,7 +29,7 @@ cd "$ENV_MONOREPO" && \
 
 ```
 echo "CONFIGURE ENV_VAR" && \
-ENV_EDGE_BRANCH="1.54";
+ENV_EDGE_BRANCH="1.55";
 ENV_MONOREPO="traefik_stack5";
 
 echo "Setup the stack" && \

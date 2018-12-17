@@ -46,13 +46,15 @@ services:
       protocol: tcp
       published: 443
       mode: ingress
-    - target: 8080
-      protocol: tcp
-      published: 8080
-      mode: ingress
+    #- target: 8080
+    #  protocol: tcp
+    #  published: 8080
+    #  mode: ingress
     networks:
       - ntw_front
       - ntw_proxy
+    volumes:
+      - ./configs/acme.json:/acme.json
     configs:
       - source: traefik.toml
         target: /etc/traefik/traefik.toml
@@ -85,9 +87,10 @@ services:
           cpus: '0.05'
           memory: 48M
       labels:
+        - "traefik.frontend.rule=PathPrefixStrip:/traefik"
         - "traefik.backend=traefik"
         - "traefik.enable=true"
-        - "traefik.logLevel=DEBUG"
+        #- "traefik.logLevel=DEBUG"
         - "traefik.port=8080"
         - "traefik.passHostHeader=true"
         - "traefik.frontend.entryPoints=http"
